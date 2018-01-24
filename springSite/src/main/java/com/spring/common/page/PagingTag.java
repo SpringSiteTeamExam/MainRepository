@@ -56,48 +56,68 @@ public class PagingTag extends TagSupport {
 		if (total < 1)
 			return "";
 		int currentFirst = ((page - 1) / page_size) * page_size + 1;
+
 		int currentlast = ((page - 1) / page_size) * page_size + page_size;
+
 		int nextFirst = (((page - 1) / page_size) + 1) * page_size + 1;
 
 		int prevFirst = (((page - 1) / page_size) - 1) * page_size + 1;
 
 		int lastPage = 1;
 		lastPage = total / list_size;
+
 		if (total % list_size != 0)
 			lastPage = lastPage + 1;
 		currentlast = (currentlast > lastPage) ? lastPage : currentlast;
+
 		ret += " <div class='paginate'> ";
+
 		if (page > 1) {
-			ret += " <a href=\"javascript:goPage('1')\"><span><img src='/resources/images/common/btn_paginate_first.gif' alt='처음' /></span></a> ";
+			ret += " <a href=\"javascript:goPage('1')\"><span><img src='/resources/images/common/btn_paginate_first.gif'alt='처음' /></span></a> ";
 		} else {
+<<<<<<< HEAD:誘쇱쁺/springSite/src/main/java/com/spring/common/page/PagingTag.java
 			ret += " <span><img src='/resources/images/common/btn_paginate_first.gif' alt='처음' /></span> ";
+=======
+			ret += " <span><img src='/resources/images/common/btn_paginate_first.gif' alt='처음'/></span> ";
+>>>>>>> 8c5ea9d49ff725314613cd5021ee122a81ecbbe7:springSite/src/main/java/com/spring/common/page/PagingTag.java
 		}
 		if (prevFirst > 0) {
-			ret += " <a href=\"javascript:goPage('"+prevFirst+"');\"><span><img src='/resources/images/common/btn_paginate_prev.gif'  alt='이전' /></span></a> ";
+			ret += " <a href=\"javascript:goPage('" + prevFirst
+					+ "');\"><span><img src='/resources/images/common/btn_paginate_prev.gif'alt='이전'/></span></a> ";
 		} else {
+<<<<<<< HEAD:誘쇱쁺/springSite/src/main/java/com/spring/common/page/PagingTag.java
 			ret += " <span><img src='/resources/images/common/btn_paginate_prev.gif'  alt='이전' /></span> ";
+=======
+			ret += " <span><img src='/resources/images/common/btn_paginate_prev.gif'alt='이전'/></span> ";
+>>>>>>> 8c5ea9d49ff725314613cd5021ee122a81ecbbe7:springSite/src/main/java/com/spring/common/page/PagingTag.java
 		}
 
 		for (int j = currentFirst; j < currentFirst + page_size && j <= lastPage; j++) {
 			if (j <= currentlast) {
 				if (j == page) {
-					ret += " <a href='#' class='on textAn'>" + j + "</a> ";
+					ret += " <a href='#'class='on textAn'>" + j + "</a> ";
 				} else {
-					ret += " <a href=\"javascript:goPage('" + j + "');\"  class='textAn'>" + j + "</a> ";
+					ret += " <a href=\"javascript:goPage('" + j + "');\"class='textAn'>" + j + "</a> ";
 				}
 
 			}
 		}
 
 		if (nextFirst <= lastPage) {
-			ret += " <a href=\"javascript:goPage('"+nextFirst+"')\"><span> <img src='/resources/images/common/btn_paginate_next.gif' alt='다음' /> </span></a> ";
+			ret += " <a href=\"javascript:goPage('" + nextFirst
+					+ "')\"><span> <img src='/resources/images/common/btn_paginate_next.gif'alt='다음'/> </span></a> ";
 		} else {
+<<<<<<< HEAD:誘쇱쁺/springSite/src/main/java/com/spring/common/page/PagingTag.java
 			ret += " <span><img src='/resources/images/common/btn_paginate_next.gif' alt='다음' /></span> ";
+=======
+			ret += " <span><img src='/resources/images/common/btn_paginate_next.gif'alt='다음'/></span> ";
+>>>>>>> 8c5ea9d49ff725314613cd5021ee122a81ecbbe7:springSite/src/main/java/com/spring/common/page/PagingTag.java
 		}
 		if (page < lastPage) {
-			ret += " <a href=\"javascript:goPage('"+lastPage+"')\"><span> <img src='/resources/images/common/btn_paginate_last.gif' alt='마지막' /> </span></a> ";
+			ret += " <a href=\"javascript:goPage('" + lastPage
+					+ "')\"><span> <img src='/resources/images/common/btn_paginate_last.gif'alt='마지막'/> </span></a> ";
 		} else {
-			ret += " <span><img src='/resources/images/common/btn_paginate_last.gif' alt='마지막' /></span> ";
+			ret += " <span><img src='/resources/images/common/btn_paginate_last.gif'alt='마지막'/></span> ";
 		}
 		ret += " </div> ";
 
