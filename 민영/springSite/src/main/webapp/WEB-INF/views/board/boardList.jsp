@@ -123,8 +123,7 @@
 		<%-- ================ 검색기능 시작 =============== --%>
 		<div id="boardSearch">
 			<form id="f_search" name="f_search">
-				<input type="hidden" name="page" value="${data.page}"> <input
-					type="hidden" id="page" name="page" value="1" /> <input
+				<input type="hidden" id="page" name="page" value="${data.page}">  <input
 					type="hidden" id="order_by" name="order_by"
 					value="${data.order_by}" /> <input type="hidden" id="order_sc"
 					name="order_sc" value="${data.order_sc}" />

@@ -65,7 +65,7 @@
 	<!-- 상세 페이지를 위한 게시물 조회 -->
 	<select id="boardDetail" parameterType="int" resultType="board">
 		SELECT
-		b_num, b_name, b_title, b_content,
+		b_num, b_name, b_title, b_content, b_file,
 		TO_CHAR(b_date,'YYYY-MM-DD
 		HH24:MI:SS') AS b_date
 		FROM spring_board
@@ -77,8 +77,8 @@
 		<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
 			select spring_board_seq.nextval from dual
 		</selectKey>
-		INSERT INTO spring_board (b_num, b_name, b_title, b_content, b_pwd)
-		VALUES(#{b_num},#{b_name},#{b_title},#{b_content},#{b_pwd})
+		INSERT INTO spring_board (b_num, b_name, b_title, b_content, <if test="b_file != null and b_file != ''">b_file,</if> b_pwd)
+		VALUES(#{b_num},#{b_name},#{b_title},#{b_content},<if test="b_file != null and b_file != ''">#{b_file},</if>#{b_pwd})
 	</insert>
 
 	<!-- 해당 번호의 비밀번호 확인 -->
@@ -94,6 +94,9 @@
 		SET b_title = #{b_title}
 		,b_content = #{b_content}
 		,b_date = #{b_date}
+		<if test="b_file != ''">
+		,b_file = #{b_file}
+		</if>
 		<if test="b_pwd != ''">
 			,b_pwd = #{b_pwd}
 		</if>
