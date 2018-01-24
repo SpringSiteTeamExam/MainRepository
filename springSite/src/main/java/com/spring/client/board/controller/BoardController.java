@@ -2,8 +2,7 @@ package com.spring.client.board.controller;
 
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.spring.client.board.service.BoardService;
 import com.spring.client.board.vo.BoardVO;
+import com.spring.common.page.Paging;
+import com.spring.common.util.Util;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -26,13 +28,25 @@ public class BoardController {
 	/**************************************************************
 	 * 글목록 구현하기
 	 **************************************************************/
-	@RequestMapping(value = "/boardList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String boardList(@ModelAttribute BoardVO bvo, Model model) {
 		logger.info("boardList 호출 성공");
-		
+
+		// 페이지 세팅
+		Paging.setPage(bvo);
+		// 전체 레코드수 구현
+		int total = boardService.boardListCnt(bvo);
+		logger.info("total = " + total);
+
+		// 글번호 재설정
+		int count = total - (Util.nvl(bvo.getPage()) - 1) * Util.nvl(bvo.getPageSize());
+		logger.info("count = " + count);
+
 		List<BoardVO> boardList = boardService.boardList(bvo);
 
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("count", count);
+		model.addAttribute("total", total);
 		model.addAttribute("data", bvo);
 		return "board/boardList";
 	}

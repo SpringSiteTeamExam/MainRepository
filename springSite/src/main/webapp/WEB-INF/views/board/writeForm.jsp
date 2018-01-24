@@ -5,33 +5,38 @@
 <head>
 <meta charset="UTF-8">
 <title>글쓰기 화면</title>
-<link rel="stylesheet" type="test/css"
-	href="/resource/include/css/common.css" />
-<link rel="stylesheet" type="test/css"
-	href="/resource/include/css/board.css" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/include/css/common.css" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/include/css/board.css" />
 <script type="text/javascript"
 	src="/resources/include/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="/resource/include/js/common.js"></script>
+<script type="text/javascript" src="/resources/include/js/common.js"></script>
 <script type="text/javascript">
-$(function(){
-/* 저장버튼 클릭시 처리 이벤트 */
- * $("boardInsertBtn").click(function() {
-	 //입력값 체크
-	 if(!chkSubmit($('#b_name'),"이름을")) return;
-	 else if(!chkSubmit($('#b_title'),"제목을")) return;
-	 else if(!chkSubmit($('#b_content'),"작성할 내용을")) return;
-	 else if(!chkSubmit($('#b_pwd'),"비밀번호를")) return;
-	 else{
-		 $("#f_writerForm").attrl({
-			 "method":"POST","action":"/board/boardInsert.do"
-		 });
-		 $("#f_writeForm").submit();
-	 }
- });
- /* 목록 버튼 클릭 시 처리 이벤트 */
- $("#boardListBtn").click(function() {
-	location.href="/board/boardList.do";
-});
+	$(function() {
+		/* 저장버튼 클릭시 처리 이벤트 */
+		$("#boardInsertBtn").click(function() {
+			//입력값 체크
+			if (!chkSubmit($('#b_name'), "이름을"))
+				return;
+			else if (!chkSubmit($('#b_title'), "제목을"))
+				return;
+			else if (!chkSubmit($('#b_content'), "작성할 내용을"))
+				return;
+			else if (!chkSubmit($('#b_pwd'), "비밀번호를"))
+				return;
+			else {
+				$("#f_writeForm").attr({
+					"method" : "POST",
+					"action" : "/board/boardInsert.do"
+				});
+				$("#f_writeForm").submit();
+			}
+		})
+		/* 목록 버튼 클릭 시 처리 이벤트 */
+		$("#boardListBtn").click(function() {
+			location.href = "/board/boardList.do";
+		});
 	});
 </script>
 </head>
@@ -40,7 +45,6 @@ $(function(){
 		<div class="contentTit">
 			<h3>게시판 글작성</h3>
 		</div>
-
 		<div class="contentTB">
 			<form id="f_writeForm" name="f_writeForm">
 				<table id="boardWrite">
@@ -57,8 +61,8 @@ $(function(){
 						<td><input type="text" name="b_title" id="b_title"></td>
 					</tr>
 					<tr>
-						<td class="ac">내용</td>
-						<td><input type="text" name="b_content" id="b_content"></td>
+						<td class="ac vm">내용</td>
+						<td><textarea name="b_content" id="b_content"></textarea></td>
 					</tr>
 					<tr>
 						<td class="ac">비밀번호</td>

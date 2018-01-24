@@ -1,10 +1,12 @@
 package com.spring.client.board.service;
 
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.spring.client.board.dao.BoardDao;
 import com.spring.client.board.vo.BoardVO;
 
@@ -31,6 +33,12 @@ public class BoardServiceImpl implements BoardService {
 		myList = boardDao.boardList(bvo);
 		return myList;
 	}
+	
+	// 전체 레코드 수 구현
+	@Override
+	public int boardListCnt(BoardVO bvo) {
+		return boardDao.boardListCnt(bvo);
+		}
 
 	// 글입력 구현
 	@Override
