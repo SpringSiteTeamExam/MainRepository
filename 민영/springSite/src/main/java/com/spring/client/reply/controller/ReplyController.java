@@ -47,27 +47,80 @@ public class ReplyController {
 	}
 
 	/**************************************************************
-	 *  댓글 글쓰기 구현하기 *
-	 *  @return String *
-	 *  참고 : @RequestBody
+	 * 댓글 글쓰기 구현하기 *
+	 * 
+	 * @return String * 참고 : @RequestBody
 	 **************************************************************/
-	@RequestMapping(value="/replyInsert")
-	public ResponseEntity<String> replyInsert(@RequestBody ReplyVO rvo){
+	@RequestMapping(value = "/replyInsert")
+	public ResponseEntity<String> replyInsert(@RequestBody ReplyVO rvo) {
 		logger.info("replyInsert 호출 성공 ");
 		ResponseEntity<String> entity = null;
 		int result;
 		try {
 			result = replyService.replyInsert(rvo);
-			if(result==1) {
+			if (result == 1) {
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
-	
-	
-	
+
+	/** 댓글 비번 구현 */
+	@RequestMapping(value = "/pwdConfrim.do")
+	public ResponseEntity<Integer> pwdConfirm(@ModelAttribute ReplyVO rvo) {
+		logger.info("pwdConfirm 호출 성공");
+		ResponseEntity<Integer> entity = null;
+		int result = 0;
+		try {
+			result = replyService.pwdConfirm(rvo);
+			entity = new ResponseEntity<Integer>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(result, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	/**************************************************************
+	 * * 댓글 수정 구현하기 * @return * 참고 : REST 방식에서 UPDATE 작업은 PUT,PATCH방식을 이용해서 처리. * 전체
+	 * 데이터를 수정하는 경우에는 PUT을 이용하고, * 일부의 데이터를 수정하는 경우에는 PATCH를 이용.
+	 **************************************************************/
+
+	@RequestMapping(value = "/{r_num}.do", method = { RequestMethod.PUT, RequestMethod.PATCH })
+	public ResponseEntity<String> replyUpdate(@PathVariable("r_num") Integer r_num, @RequestBody ReplyVO rvo) {
+		logger.info("replyUpdate 호출 성공");
+		ResponseEntity<String> entity = null;
+		try {
+			rvo.setR_num(r_num);
+			replyService.replyUpdate(rvo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	/**************************************************************
+	 * 댓글 삭제 구현하기
+	 * 
+	 * @return * 참고 : REST 방식에서 DELETE 작업은 DELETE방식을 이용해서 처리.
+	 **************************************************************/
+
+	@RequestMapping(value = "/{r_num}.do", method = RequestMethod.DELETE)
+	public ResponseEntity<String> replyDelete(@PathVariable("r_num") Integer r_num) {
+		logger.info("replyDelete 호출 성공");
+		ResponseEntity<String> entity = null;
+		try {
+			replyService.replyDelete(r_num);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }
