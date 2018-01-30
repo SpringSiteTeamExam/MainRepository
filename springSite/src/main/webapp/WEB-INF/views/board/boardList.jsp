@@ -123,7 +123,7 @@
 		<%-- ================ 검색기능 시작 =============== --%>
 		<div id="boardSearch">
 			<form id="f_search" name="f_search">
-				<input type="hidden" id="page" name="page" value="${data.page}"> <input
+				<input type="hidden" id="page" name="page" value="${data.page}">  <input
 					type="hidden" id="order_by" name="order_by"
 					value="${data.order_by}" /> <input type="hidden" id="order_sc"
 					name="order_sc" value="${data.order_sc}" />
@@ -216,7 +216,8 @@
 		<%-- ============== 글쓰기 버튼 출력 종료============ --%>
 		<%-- ============ 페이지 네비게이션 시작 ============ --%>
 		<div id="boardPage">
-			<tag:paging page="${param.page}" total="${total}" list_size="${data.pageSize}" />
+			<tag:paging page="${param.page}" total="${total}"
+				list_size="${data.pageSize}" />
 		</div>
 		<%-- =========== 페이지 네비게이션 종료 ============= --%>
 	</div>
